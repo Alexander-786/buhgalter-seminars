@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Семінари для бухгалтерів | Вікторія Величко</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1>📚 Семінари для бухгалтерів</h1>
+                <p>Професійні онлайн-семінари від Вікторії Величко</p>
+            </div>
+            <button class="admin-btn" onclick="toggleAdmin()">🔧 Адміністратор</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Адмін-панель -->
+        <div id="adminPanel" class="admin-panel hidden">
+            <h2>Панель адміністратора</h2>
+            <form onsubmit="addSeminar(event)" class="seminar-form">
+                <div class="form-group">
+                    <label>Назва семінару *</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Дата (дд.мм.рррр) *</label>
+                    <input type="text" id="date" placeholder="27.05.2026" required>
+                </div>
+                <div class="form-group">
+                    <label>Час початку *</label>
+                    <input type="text" id="time" placeholder="11:30" required>
+                </div>
+                <div class="form-group">
+                    <label>Місце проведення</label>
+                    <input type="text" id="location">
+                </div>
+                <div class="form-group">
+                    <label>Опис</label>
+                    <textarea id="description" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Вартість (грн) *</label>
+                    <input type="number" id="price" required>
+                </div>
+                <div class="form-group">
+                    <label>Ранна ціна (грн)</label>
+                    <input type="number" id="earlyPrice">
+                </div>
+                <div class="form-group">
+                    <label>Дедлайн ранної ціни (дд.мм.рррр)</label>
+                    <input type="text" id="earlyDeadline" placeholder="20.05.2026">
+                </div>
+                <div class="form-group">
+                    <label>Лектор</label>
+                    <input type="text" id="lecturer">
+                </div>
+                <button type="submit" class="btn btn-primary">➕ Додати семінар</button>
+            </form>
+        </div>
+
+        <!-- Список семінарів -->
+        <div class="seminars-grid" id="seminarsGrid"></div>
+    </main>
+
+    <!-- Модальне вікно -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+            <div class="modal-actions" id="modalActions"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>📞 Контакти: +38(096)779 83 67</p>
+            <p>📧 Email: shishkova.sv.odessa@gmail.com</p>
+            <p>© 2026 Всі права захищені</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
