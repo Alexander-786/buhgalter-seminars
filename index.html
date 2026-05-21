@@ -17,50 +17,21 @@
         </div>
     </header>
 
-    <!-- Галерея фото -->
-    <section class="gallery-section">
-        <div class="container">
-            <h2>📸 Наші семінари</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop" alt="Бухгалтер за роботою">
-                    <p>Професійні знання</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop" alt="Аналіз даних">
-                    <p>Аналіз фінансів</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" alt="Робота з документами">
-                    <p>Облік та документи</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1460925895917-adf4198c8c81?w=400&h=300&fit=crop" alt="Статистика">
-                    <p>Статистичні звіти</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1533541966574-b6fead69b8d0?w=400&h=300&fit=crop" alt="Командна робота">
-                    <p>Командна робота</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <main class="container main-content">
+    <main class="container">
         <!-- Адмін-панель -->
         <div id="adminPanel" class="admin-panel hidden">
             <h2>Панель адміністратора</h2>
             <form onsubmit="addSeminar(event)" class="seminar-form">
                 <div class="form-group">
-                    <label>Назва семінару *</label>
+                    <label>Назва семінару *(обов'язково)</label>
                     <input type="text" id="name" required>
                 </div>
                 <div class="form-group">
-                    <label>Дата (дд.мм.рррр) *</label>
+                    <label>Дата (дд.мм.рррр) *(обов'язково)</label>
                     <input type="text" id="date" placeholder="27.05.2026" required>
                 </div>
                 <div class="form-group">
-                    <label>Час початку *</label>
+                    <label>Час початку *(обов'язково)</label>
                     <input type="text" id="time" placeholder="11:30" required>
                 </div>
                 <div class="form-group">
@@ -68,11 +39,11 @@
                     <input type="text" id="location">
                 </div>
                 <div class="form-group">
-                    <label>Опис</label>
-                    <textarea id="description" rows="4"></textarea>
+                    <label>Короткий опис</label>
+                    <textarea id="description" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Вартість (грн) *</label>
+                    <label>Вартість (грн) *(обов'язково)</label>
                     <input type="number" id="price" required>
                 </div>
                 <div class="form-group">
@@ -87,15 +58,28 @@
                     <label>Лектор</label>
                     <input type="text" id="lecturer">
                 </div>
+                <div class="form-group">
+                    <label>Для кого? (цільова аудиторія)</label>
+                    <textarea id="audience" rows="4" placeholder="Введіть цільову аудиторію"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Програма (детальна)</label>
+                    <textarea id="program" rows="8" placeholder="Введіть детальну програму"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Регламент (розклад)</label>
+                    <textarea id="schedule" rows="5" placeholder="Введіть розклад заходу"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Що отримають учасники?</label>
+                    <textarea id="benefits" rows="4" placeholder="Список переваг для учасників"></textarea>
+                </div>
                 <button type="submit" class="btn btn-primary">➕ Додати семінар</button>
             </form>
         </div>
 
         <!-- Список семінарів -->
-        <section class="seminars-section">
-            <h2>🎓 Доступні семінари</h2>
-            <div class="seminars-grid" id="seminarsGrid"></div>
-        </section>
+        <div class="seminars-grid" id="seminarsGrid"></div>
     </main>
 
     <!-- Модальне вікно -->
@@ -111,22 +95,30 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>📞 Контакти</h3>
-                    <p>☎️ +38(096)779 83 67</p>
+                    <h4>📞 Контакти</h4>
+                    <p>📱 +38(096)779 83 67</p>
                     <p>📧 shishkova.sv.odessa@gmail.com</p>
                 </div>
                 <div class="footer-section">
-                    <h3>🌐 Соціальні мережі</h3>
-                    <p>📱 Instagram: @shishkova.sv.odessa</p>
-                    <p>👥 Facebook: facebook.com/svetlana.shishkova.96</p>
+                    <h4>🌐 Соцмережі</h4>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/shishkova.sv.odessa/" target="_blank">📷 Instagram</a>
+                        <a href="https://www.facebook.com/svetlana.shishkova.96" target="_blank">👥 Facebook</a>
+                        <a href="https://www.tiktok.com/@salezone87/live" target="_blank">🎵 TikTok Live</a>
+                    </div>
                 </div>
                 <div class="footer-section">
-                    <h3>💳 Реквізити</h3>
+                    <h4>💳 Реквізити для оплати</h4>
+                    <p><strong>ФОП Шишкова Світлана Володимирівна</strong></p>
+                    <p>Платник єдиного податку - 3 група</p>
                     <p>ЄДРПОУ: 2355907141</p>
+                    <p>IBAN: UA473281680000000026004180671</p>
+                    <p>Банк: ПАТ "МТБ БАНК"</p>
                     <p>МФО: 328168</p>
                 </div>
             </div>
-            <p class="footer-bottom">© 2026 Всі права захищені</p>
+            <hr>
+            <p style="text-align: center; margin-top: 20px;">© 2026 Всі права захищені</p>
         </div>
     </footer>
 
