@@ -12,7 +12,7 @@ const initialSeminars = [
         earlyDeadline: "20.05.2026",
         lecturer: "Вікторія Величко",
         duration: "3 години",
-        schedule: "11:30-13:00 – 1 частина\n13:30-15:00 – 2 частина\n15:30-16:30 – 3 частина"
+        schedule: "11:30-13:00 – 1 частина\n13:30-15:00 – 2 частина\n15:30-16:30 – 3 частина і відповіді на запитання"
     },
     {
         id: 2,
@@ -26,7 +26,7 @@ const initialSeminars = [
         earlyDeadline: "20.05.2026",
         lecturer: "Вікторія Величко",
         duration: "4 години",
-        schedule: "11:30-12:00 – реєстрація\n12:00-13:30 – 1 частина\n13:30-14:00 – перерва\n14:00-15:30 – 2 частина\n15:30-16:00 – перерва\n16:00-17:00 – 3 частина"
+        schedule: "11:30-12:00 – реєстрація, налаштування\n12:00-13:30 – 1 частина\n13:30-14:00 – перерва\n14:00-15:30 – 2 частина\n15:30-16:00 – перерва\n16:00-17:00 – 3 частина та відповіді на запитання"
     }
 ];
 
@@ -55,12 +55,14 @@ function saveSeminars() {
     localStorage.setItem('seminars', JSON.stringify(seminars));
 }
 
-// Переключення адмін-панелі
+// Перекладення адмін-панелі
 function toggleAdmin() {
     adminVisible = !adminVisible;
     const adminPanel = document.getElementById('adminPanel');
     if (adminVisible) {
         adminPanel.classList.remove('hidden');
+        // Прокрутка до форми
+        adminPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
         adminPanel.classList.add('hidden');
     }
@@ -126,7 +128,10 @@ function editSeminar(id) {
     closeModal();
 
     // Прокрутка до форми
-    document.querySelector('.admin-panel').scrollIntoView({ behavior: 'smooth' });
+    const adminPanel = document.getElementById('adminPanel');
+    adminPanel.classList.remove('hidden');
+    adminVisible = true;
+    adminPanel.scrollIntoView({ behavior: 'smooth' });
     alert('✅ Редагуйте форму вище та натисніть "Додати семінар"');
 }
 
@@ -151,7 +156,7 @@ function renderSeminars() {
     grid.innerHTML = '';
 
     if (seminars.length === 0) {
-        grid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><p>📭 Семінарів не знайдено</p></div>';
+        grid.innerHTML = '<div class="empty-state"><p>🎓 Семінари не знайдено</p></div>';
         return;
     }
 
@@ -212,8 +217,7 @@ function openModal(seminar) {
         <p><strong>📍 Місце:</strong> ${seminar.location}</p>
         <p><strong>👨‍🏫 Лектор:</strong> ${seminar.lecturer}</p>
         <p><strong>📝 Опис:</strong> ${seminar.description}</p>
-        <p><strong>⏱️ Регламент:</strong></p>
-        <pre>${seminar.schedule || 'Інформація немає'}</pre>
+        ${seminar.schedule ? `<p><strong>⏱️ Регламент:</strong></p><pre>${seminar.schedule}</pre>` : ''}
         <p><strong>💰 Вартість:</strong></p>
         <div class="price-section">
             ${isEarlyActive && seminar.earlyPrice ? `
@@ -256,14 +260,3 @@ window.onclick = function(event) {
         closeModal();
     }
 };
-
-// Експорт даних (для бекапу)
-function exportData() {
-    const dataStr = JSON.stringify(seminars, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `seminars-${new Date().toISOString().split('T')[0]}.json`;
-    link.click();
-}

@@ -17,7 +17,36 @@
         </div>
     </header>
 
-    <main class="container">
+    <!-- Галерея фото -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2>📸 Наші семінари</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop" alt="Бухгалтер за роботою">
+                    <p>Професійні знання</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop" alt="Аналіз даних">
+                    <p>Аналіз фінансів</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" alt="Робота з документами">
+                    <p>Облік та документи</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1460925895917-adf4198c8c81?w=400&h=300&fit=crop" alt="Статистика">
+                    <p>Статистичні звіти</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1533541966574-b6fead69b8d0?w=400&h=300&fit=crop" alt="Командна робота">
+                    <p>Командна робота</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container main-content">
         <!-- Адмін-панель -->
         <div id="adminPanel" class="admin-panel hidden">
             <h2>Панель адміністратора</h2>
@@ -47,7 +76,7 @@
                     <input type="number" id="price" required>
                 </div>
                 <div class="form-group">
-                    <label>Ранна ціна (грн)</label>
+                    <label>Рання ціна (грн)</label>
                     <input type="number" id="earlyPrice">
                 </div>
                 <div class="form-group">
@@ -63,7 +92,10 @@
         </div>
 
         <!-- Список семінарів -->
-        <div class="seminars-grid" id="seminarsGrid"></div>
+        <section class="seminars-section">
+            <h2>🎓 Доступні семінари</h2>
+            <div class="seminars-grid" id="seminarsGrid"></div>
+        </section>
     </main>
 
     <!-- Модальне вікно -->
@@ -77,9 +109,24 @@
 
     <footer class="footer">
         <div class="container">
-            <p>📞 Контакти: +38(096)779 83 67</p>
-            <p>📧 Email: shishkova.sv.odessa@gmail.com</p>
-            <p>© 2026 Всі права захищені</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>📞 Контакти</h3>
+                    <p>☎️ +38(096)779 83 67</p>
+                    <p>📧 shishkova.sv.odessa@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>🌐 Соціальні мережі</h3>
+                    <p>📱 Instagram: @shishkova.sv.odessa</p>
+                    <p>👥 Facebook: facebook.com/svetlana.shishkova.96</p>
+                </div>
+                <div class="footer-section">
+                    <h3>💳 Реквізити</h3>
+                    <p>ЄДРПОУ: 2355907141</p>
+                    <p>МФО: 328168</p>
+                </div>
+            </div>
+            <p class="footer-bottom">© 2026 Всі права захищені</p>
         </div>
     </footer>
 
