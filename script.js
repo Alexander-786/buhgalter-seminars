@@ -19,7 +19,7 @@ const initialSeminars = [
     },
     {
         id: 2,
-        name: "СОБІВАРТІСТЬ ПРОДУКЦІЇ (ПОСЛУГ) БЕЗ ПОМИЛОК: ВІД ФОРМУВАННЯ ВИТРАТ ДО ЗАХИСТУ ПІД ЧАС ПЕРЕВІРКИ ДПС",
+        name: "СОБІВАРТІСТЬ ПРОДУКЦІЇ (ПОСЛУГ) БЕЗ ПОМИЛОК: ВІД ФОРМУВАННЯ ВИТРАТ ДО ЗАХИСТУ ПІД ЧАС ПЕРЕВІРКИ ДП",
         date: "26.05.2026",
         time: "12:00",
         location: "Онлайн",
@@ -31,7 +31,7 @@ const initialSeminars = [
         duration: "4 години",
         audience: "Для бухгалтерів, керівників, аудиторів",
         program: "Детальна програма семінару",
-        schedule: "11:30-12:00 – реєстрація, налаштування\n12:00-13:30 – 1 частина\n13:30-14:00 – перерва\n14:00-15:30 – 2 частина\n15:30-16:00 – перерва\n16:00-17:00 – 3 частина",
+        schedule: "11:30-12:00 – реєстрація, налаштування\n12:00-13:30 – 1 частина\n13:30-14:00 – перерва\n14:00-15:30 – 2 частина\n15:30-16:00 – пауза",
         benefits: "Сертифікат про участь, матеріали семінару, запис"
     }
 ];
@@ -42,6 +42,7 @@ let adminVisible = false;
 // Ініціалізація
 document.addEventListener('DOMContentLoaded', function() {
     loadSeminars();
+    loadAdminState();
     renderSeminars();
 });
 
@@ -61,9 +62,25 @@ function saveSeminars() {
     localStorage.setItem('seminars', JSON.stringify(seminars));
 }
 
+// Завантаження стану адміністратора з localStorage
+function loadAdminState() {
+    const stored = localStorage.getItem('adminVisible');
+    adminVisible = stored === 'true' ? true : false;
+    if (adminVisible) {
+        const adminPanel = document.getElementById('adminPanel');
+        adminPanel.classList.remove('hidden');
+    }
+}
+
+// Збереження стану адміністратора у localStorage
+function saveAdminState() {
+    localStorage.setItem('adminVisible', adminVisible);
+}
+
 // Перекладення адмін-панелі
 function toggleAdmin() {
     adminVisible = !adminVisible;
+    saveAdminState();
     const adminPanel = document.getElementById('adminPanel');
     if (adminVisible) {
         adminPanel.classList.remove('hidden');
@@ -145,6 +162,7 @@ function editSeminar(id) {
     const adminPanel = document.getElementById('adminPanel');
     adminPanel.classList.remove('hidden');
     adminVisible = true;
+    saveAdminState();
     adminPanel.scrollIntoView({ behavior: 'smooth' });
     alert('✅ Редагуйте форму вище та натисніть "Додати семінар"');
 }
