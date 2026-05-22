@@ -12,7 +12,10 @@ const initialSeminars = [
         earlyDeadline: "20.05.2026",
         lecturer: "Вікторія Величко",
         duration: "3 години",
-        schedule: "11:30-13:00 – 1 частина\n13:30-15:00 – 2 частина\n15:30-16:30 – 3 частина і відповіді на запитання"
+        audience: "Для бухгалтерів, керівників, аудиторів",
+        program: "Детальна програма семінару",
+        schedule: "11:30-13:00 – 1 частина\n13:30-15:00 – 2 частина\n15:30-16:30 – 3 частина і відповіді на запитання",
+        benefits: "Сертифікат про участь, матеріали семінару, запис"
     },
     {
         id: 2,
@@ -20,13 +23,16 @@ const initialSeminars = [
         date: "26.05.2026",
         time: "12:00",
         location: "Онлайн",
-        description: "Онлайн-семінар для бухгалтерів, керівників, аудиторів про формування собівартості продукції та послуг",
+        description: "Онлайн-семінар для бухгалтерів, керівників, аудиторів про формування собівартості продукції",
         price: 3910,
         earlyPrice: 2970,
         earlyDeadline: "20.05.2026",
         lecturer: "Вікторія Величко",
         duration: "4 години",
-        schedule: "11:30-12:00 – реєстрація, налаштування\n12:00-13:30 – 1 частина\n13:30-14:00 – перерва\n14:00-15:30 – 2 частина\n15:30-16:00 – перерва\n16:00-17:00 – 3 частина та відповіді на запитання"
+        audience: "Для бухгалтерів, керівників, аудиторів",
+        program: "Детальна програма семінару",
+        schedule: "11:30-12:00 – реєстрація, налаштування\n12:00-13:30 – 1 частина\n13:30-14:00 – перерва\n14:00-15:30 – 2 частина\n15:30-16:00 – перерва\n16:00-17:00 – 3 частина",
+        benefits: "Сертифікат про участь, матеріали семінару, запис"
     }
 ];
 
@@ -82,7 +88,11 @@ function addSeminar(event) {
         price: parseFloat(document.getElementById('price').value),
         earlyPrice: parseFloat(document.getElementById('earlyPrice').value) || 0,
         earlyDeadline: document.getElementById('earlyDeadline').value,
-        lecturer: document.getElementById('lecturer').value || 'Вікторія Величко'
+        lecturer: document.getElementById('lecturer').value || 'Вікторія Величко',
+        audience: document.getElementById('audience').value || '',
+        program: document.getElementById('program').value || '',
+        schedule: document.getElementById('schedule').value || '',
+        benefits: document.getElementById('benefits').value || ''
     };
 
     seminars.push(newSeminar);
@@ -120,6 +130,10 @@ function editSeminar(id) {
     document.getElementById('earlyPrice').value = seminar.earlyPrice || '';
     document.getElementById('earlyDeadline').value = seminar.earlyDeadline || '';
     document.getElementById('lecturer').value = seminar.lecturer;
+    document.getElementById('audience').value = seminar.audience || '';
+    document.getElementById('program').value = seminar.program || '';
+    document.getElementById('schedule').value = seminar.schedule || '';
+    document.getElementById('benefits').value = seminar.benefits || '';
 
     // Видалення старого семінару
     seminars = seminars.filter(s => s.id !== id);
@@ -210,14 +224,37 @@ function openModal(seminar) {
     const isEarlyActive = isEarlyPriceActive(seminar.earlyDeadline);
     const displayPrice = isEarlyActive && seminar.earlyPrice ? seminar.earlyPrice : seminar.price;
 
-    modalBody.innerHTML = `
+    let detailsHTML = `
         <h2>${seminar.name}</h2>
         <p><strong>📅 Дата:</strong> ${seminar.date}</p>
         <p><strong>⏰ Час:</strong> ${seminar.time}</p>
         <p><strong>📍 Місце:</strong> ${seminar.location}</p>
         <p><strong>👨‍🏫 Лектор:</strong> ${seminar.lecturer}</p>
         <p><strong>📝 Опис:</strong> ${seminar.description}</p>
-        ${seminar.schedule ? `<p><strong>⏱️ Регламент:</strong></p><pre>${seminar.schedule}</pre>` : ''}
+    `;
+
+    // Додавання цільової аудиторії, якщо є
+    if (seminar.audience) {
+        detailsHTML += `<p><strong>👥 Для кого?:</strong></p><pre>${seminar.audience}</pre>`;
+    }
+
+    // Додавання детальної програми, якщо є
+    if (seminar.program) {
+        detailsHTML += `<p><strong>📋 Детальна програма:</strong></p><pre>${seminar.program}</pre>`;
+    }
+
+    // Додавання регламенту, якщо є
+    if (seminar.schedule) {
+        detailsHTML += `<p><strong>⏱️ Регламент:</strong></p><pre>${seminar.schedule}</pre>`;
+    }
+
+    // Додавання переваг, якщо є
+    if (seminar.benefits) {
+        detailsHTML += `<p><strong>🎁 Що отримають учасники:</strong></p><pre>${seminar.benefits}</pre>`;
+    }
+
+    // Додавання вартості
+    detailsHTML += `
         <p><strong>💰 Вартість:</strong></p>
         <div class="price-section">
             ${isEarlyActive && seminar.earlyPrice ? `
@@ -229,6 +266,8 @@ function openModal(seminar) {
             `}
         </div>
     `;
+
+    modalBody.innerHTML = detailsHTML;
 
     if (adminVisible) {
         modalActions.innerHTML = `
